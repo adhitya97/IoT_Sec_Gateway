@@ -20,7 +20,7 @@ update() {
 install_docker() {
     echo "Installing Docker..."
     sudo apt-get update -qq
-    sudo apt-get install -yqq docker-compose 
+    sudo apt-get install -yqq docker-compose
     sudo apt-get install -yqq apt-transport-https ca-certificates \
 	 curl software-properties-common
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
@@ -72,9 +72,9 @@ install_ovs_fromGit() {
 
     #Clone repository, build, and install
     cd ~
-    git clone https://github.com/slab14/ovs.git
+    git clone https://github.com/adhitya97/ovs.git
     cd ovs
-    git checkout slab
+    git checkout adhitya_feature_signing
     ./boot.sh
     ./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc --with-linux=/lib/modules/$(uname -r)/build
     make
@@ -138,7 +138,7 @@ setup_bridge() {
 
     local client_side_if=$(find_interface_for_ip $CLIENT_SIDE_IP)
     local server_side_if=$(find_interface_for_ip $SERVER_SIDE_IP)
-    
+
     sudo ovs-vsctl --may-exist add-port $BRIDGE_NAME $client_side_if \
 	 -- set Interface $client_side_if ofport_request=1
     sudo ovs-ofctl mod-port $BRIDGE_NAME $client_side_if up
@@ -175,7 +175,7 @@ setup_maven
 setup_remote_ovsdb_server
 setup_remote_docker
 get_controller
-    
+
 # Setup
 disable_gro
 setup_bridge
